@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>#{{ tag.name }} Tagı ile İlgili Yazılar</title>
+    {% load static %}  
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body class="tagged-posts-page">
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'post_list' %}">Yazılar</a></li>
+        </ul>
+    </nav>
+    <div id="posts" class="container">
+        <div class="tag-bar">
+            <h2>Etiketler</h2>
+            <ul>
+                {% for tag in tags %}
+                    <li><a href="{% url 'tagged_posts' tag.id %}">#{{ tag.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="posts">
+            <h1>#{{ tag.name }} Tagı ile İlgili Yazılar</h1>
+            {% for post in posts %}
+                <h2><a href="{% url 'post_detail' slug=post.slug %}">{{ post.title }}</a></h2>
+                <p>{{ post.content|safe|truncatewords:30 }}</p>
+                <p class="post-date">Published on: {{ post.created_at|date:"F d, Y" }}</p>
+            {% empty %}
+                <p>Bu tag altında hiç yazı yok.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

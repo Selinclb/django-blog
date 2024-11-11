@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeni Blog Yazısı</title>
+    {% load static %}
+    {{ form.media }} 
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body class="post-edit-container">
+    <h1>Yeni Blog Yazısı Ekle</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button" type="submit">Kaydet</button>
+    </form>
+</body>
+</html>

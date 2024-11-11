@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Postları</title>
+    {% load static %}  
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body class="post-list-page">
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'post_list' %}">Yazılar</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="tag-bar">
+            <ul>
+                <h2>Etiketler</h2>
+                    {% for tag in tags %}
+                        <li><a href="{% url 'tagged_posts' tag.id %}">#{{ tag.name }}</a></li>
+                    {% endfor %}
+            </ul>
+        </div>
+        <div class="posts">
+            <h1>Blog Postları</h1>
+            <ul>
+                {% for post in posts %}
+                <li>
+                    <a href="{% url 'post_detail' slug=post.slug %}">{{ post.title }}</a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+
