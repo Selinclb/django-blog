@@ -1,5 +1,12 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# .env dosyasını yükle
+load_dotenv()
+
+# Secret key'i .env dosyasından al
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -8,11 +15,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-h#zn-*_o^-*&45)ukme$on7byae98)qkkmc^+y-@4g6w+$*93)'
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost','selincelebi.xyz', 'www.selincelebi.xyz']
 
@@ -108,11 +112,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
     BASE_DIR / "blog" / "static",
 ]
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Default primary key field type
@@ -120,14 +128,31 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = '/media/'
-
 TINYMCE_DEFAULT_CONFIG = {
-    'plugins': 'link image media code table',
-    'toolbar': 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist | link image media | code | table',
-    'menubar': 'file edit view insert format tools table',
-    'file_picker_types': 'image',
-    'image_caption': True
+    'height': 500,
+    'width': '100%',
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 20,
+    'selector': 'textarea',
+    'theme': 'silver',
+    'plugins': '''
+        paste autolink lists link image charmap print preview anchor
+        searchreplace visualblocks code fullscreen
+        insertdatetime media table code help wordcount
+        ''',
+    'toolbar': 'undo redo | formatselect | '
+               'bold italic backcolor | alignleft aligncenter '
+               'alignright alignjustify | bullist numlist outdent indent | '
+               'removeformat | help',
+    'content_css': [
+        '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+        '//www.tiny.cloud/css/codepen.min.css'
+    ]
 }
 
-TINYMCE_FILEBROWSER = True
+TINYMCE_COMPRESSOR = False
+
+# TinyMCE için özel API key alın
+TINYMCE_JS_URL = 'https://cdn.tiny.cloud/1/YOUR-API-KEY/tinymce/6/tinymce.min.js'
+
+TINYMCE_API_KEY = os.getenv('8bq75pcmhko9xqicjbr8oagq19mm0u037qho0000w8qfsmox')
