@@ -18,7 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','selincelebi.xyz', 'www.selincelebi.xyz']
 
 
 
@@ -153,6 +153,6 @@ TINYMCE_DEFAULT_CONFIG = {
 TINYMCE_COMPRESSOR = False
 
 # TinyMCE için özel API key alın
-TINYMCE_JS_URL = 'https://cdn.tiny.cloud/1/YOUR-API-KEY/tinymce/6/tinymce.min.js'
+TINYMCE_JS_URL = f'https://cdn.tiny.cloud/1/{os.getenv("TINYMCE_API_KEY")}/tinymce/6/tinymce.min.js'
 
-TINYMCE_API_KEY = os.getenv('8bq75pcmhko9xqicjbr8oagq19mm0u037qho0000w8qfsmox')
+TINYMCE_API_KEY = os.getenv('TINYMCE_API_KEY')
